@@ -380,19 +380,22 @@ stopWords = getStopWordList()
 
 #best_words,pos_tweets,neg_tweets=getbest_words()
 
-#f = open('bestwords.pickle', 'wb')
-#pickle.dump(best_words, f)
-#f.close()
-f = open('bestwords.pickle', 'rb')
-best_words = pickle.load(f)
-f.close()
 
 trainflag= args.training_flag
 
 if (trainflag==1):
     download_sentiment_training_dataset()
     generate_classifiers( pos_tweets,neg_tweets)
+    f = open('bestwords.pickle', 'wb')
+    pickle.dump(best_words, f)
+    f.close()
+
 else:
+    f = open('bestwords.pickle', 'rb')
+    best_words = pickle.load(f)
+    f.close()
+
+
     print 'loading classifiers'
     f = open('MaximumEntropy_classifier.pickle', 'rb')
     ME_classifier = pickle.load(f)
