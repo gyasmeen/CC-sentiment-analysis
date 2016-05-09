@@ -384,11 +384,12 @@ stopWords = getStopWordList()
 trainflag= args.training_flag
 
 if (trainflag==1):
-    download_sentiment_training_dataset()
-    generate_classifiers( pos_tweets,neg_tweets)
+    best_words,pos_tweets,neg_tweets=getbest_words()
     f = open('bestwords.pickle', 'wb')
     pickle.dump(best_words, f)
     f.close()
+    download_sentiment_training_dataset()
+    generate_classifiers( pos_tweets,neg_tweets)
 
 else:
     f = open('bestwords.pickle', 'rb')
